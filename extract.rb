@@ -35,6 +35,7 @@ morgue_files.each_with_index do |morgue_file|
   if name && timestamp && type == 'txt'
     events, monsters = parse_morgue_file2(morgue_file)
     games << {name: name, timestamp: timestamp, events: events, monsters: monsters} if events || monsters
+    puts morgue_file unless events && monsters # error
   end
 end
 
