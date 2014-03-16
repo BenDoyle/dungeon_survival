@@ -33,14 +33,12 @@ games = []
 morgue_files.each do |morgue_file|
   name, timestamp, type = morgue_file.scan(/morgue-(\w+)-(\d{8}-\d{6})\.(\w{3})/).first
   if name && timestamp && type == 'txt'
-# morgue_file = '/Users/ben/Library/Application Support/Dungeon Crawl Stone Soup/morgue/morgue-Ben-20110508-192552.txt'
     notes, monsters = parse_morgue_file2(morgue_file)
     games << {name: name, timestamp: timestamp, notes: notes, monsters: monsters} if notes || monsters
-# games << {notes: notes, monsters: monsters} if notes || monsters
   end
 end
 
 puts games[2][:name]
 puts games[2][:timestamp]
-# puts games[1][:notes]
+puts games[2][:notes]
 puts games[2][:monsters]
