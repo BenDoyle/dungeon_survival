@@ -1,7 +1,7 @@
 def parse_morgue_file2(morgue_file)
   singular_monster_regex   = /^\s{2}(An?\s+)?([a-zA-Z_\s]+)\(\w+:\d{1,2}\)/
   plural_monster_regex     = /^\s{2}(\d+)\s([a-zA-Z_\s]+)(\(\w+:\d{1,2}\))?/
-  event_regex              = /^(\d+)\s+\|\s+(\w+):(\d{1,2})\s+\|\s+(.+)/
+  event_regex              = /^\s+(\d+)\s+\|\s+(\w+):(\d{1,2})\s+\|\s+(.+)/
 
   monsters = []
   events   = []
@@ -30,15 +30,15 @@ end
 morgue_files = Dir["#{ARGV[0]}/*"].entries
 games = []
 
-morgue_files.each do |morgue_file|
+morgue_files.each_with_index do |morgue_file|
   name, timestamp, type = morgue_file.scan(/morgue-(\w+)-(\d{8}-\d{6})\.(\w{3})/).first
   if name && timestamp && type == 'txt'
-    notes, monsters = parse_morgue_file2(morgue_file)
-    games << {name: name, timestamp: timestamp, notes: notes, monsters: monsters} if notes || monsters
+    events, monsters = parse_morgue_file2(morgue_file)
+    games << {name: name, timestamp: timestamp, events: events, monsters: monsters} if events || monsters
   end
 end
 
-puts games[2][:name]
-puts games[2][:timestamp]
-puts games[2][:notes]
-puts games[2][:monsters]
+puts games[0][:name]
+puts games[0][:timestamp]
+puts games[0][:events]
+puts games[0][:monsters]
