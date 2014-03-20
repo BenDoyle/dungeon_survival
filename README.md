@@ -1,3 +1,4 @@
-dungeon_survival
+Dungeon Survival
 ================
+
 Parse DCSS logfiles, extract event data
