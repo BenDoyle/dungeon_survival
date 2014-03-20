@@ -1,0 +1,181 @@
+ Dungeon Crawl Stone Soup version 0.13.1 (tiles) character file.
+
+134 Crag the Cudgeler (level 2, -6/23 HPs)
+             Began as a Minotaur Warper on Mar 19, 2014.
+             Mangled by a worm (9 damage)
+             ... on Level 2 of the Dungeon.
+             The game lasted 00:01:37 (639 turns).
+
+Crag the Cudgeler (Minotaur Warper)                  Turns: 639, Time: 00:01:37
+
+HP  -6/23        AC  3     Str 15      XL: 2   Next: 75%
+MP   1/1         EV 11     Int 10      God: 
+Gold 111         SH  0     Dex  9      Spells:  1 memorised,  2 levels left
+
+Res.Fire  : . . .   See Invis. : .   a - +0 mace
+Res.Cold  : . . .   Warding    : .   b - +0 leather armour
+Life Prot.: . . .   Conserve   : .   (no shield)
+Res.Poison: .       Res.Corr.  : .   (helmet restricted)
+Res.Elec. : .       Clarity    : .   (no cloak)
+Sust.Abil.: . .     Spirit.Shd : .   (no gloves)
+Res.Mut.  : .       Stasis     : .   (no boots)
+Res.Rott. : .       Flight     : .   (no amulet)
+Saprovore : . . .                    (no ring)
+                                     (no ring)
+
+@: not resistant to hostile enchantments, very unstealthy
+A: retaliatory headbutt, horns 2
+a: no special abilities
+
+
+You were on level 2 of the Dungeon.
+You were not hungry.
+
+You visited 1 branch of the dungeon, and saw 2 of its levels.
+
+You collected 61 gold pieces.
+
+Inventory:
+
+Hand weapons
+ a - a +0,+0 mace (weapon)
+Missiles
+ e - 16 darts (quivered)
+ f - 10 darts of dispersal
+Armour
+ b - a +0 leather armour (worn)
+ k - a +0 plate armour
+Comestibles
+ g - a bread ration
+ l - a lychee
+ o - a rotting chunk of bat flesh
+Scrolls
+ d - a scroll of blinking
+ p - 2 scrolls of identify {unknown}
+ q - a scroll of enchant weapon I {unknown}
+Potions
+ h - a potion of magic {unknown}
+ i - a potion of invisibility {unknown}
+ j - a potion of restore abilities {unknown}
+ m - a potion of might {unknown}
+Books
+ c - a book of Spatial Translocations   
+   
+   Spells                             Type                      Level
+   *Apportation                       Translocation                1
+   Portal Projectile                  Translocation                2
+   Blink                              Translocation                2
+   Shroud of Golubria                 Charms/Translocation         2
+   Teleport Other                     Translocation                3
+   Passage of Golubria                Translocation                4
+
+
+   Skills:
+ - Level 2.4 Fighting
+ + Level 4.1 Maces & Flails
+ - Level 1.0 Throwing
+ - Level 1.2 Armour
+ - Level 2.1 Dodging
+ - Level 1.3 Spellcasting
+ - Level 2.1 Translocations
+
+
+You had 2 spell levels left.
+You knew the following spells:
+
+ Your Spells              Type           Power        Failure   Level  Hunger
+a - Apportation           Tloc           #.........   14%         1    ##.....
+
+
+Dungeon Overview and Level Annotations
+
+Branches:
+Dungeon (2/27)            
+
+Altars:
+
+
+Innate Abilities, Weirdness & Mutations
+
+You reflexively headbutt those who attack you in melee.
+You have a pair of horns on your head.
+
+
+Message History
+
+You sock the worm!
+The worm is heavily wounded.
+The worm bites you!
+* * * LOW HITPOINT WARNING * * *
+You are too injured to fight recklessly!
+You are too injured to fight recklessly!
+You are too injured to fight recklessly!
+You are too injured to fight recklessly!
+You are too injured to fight recklessly!
+You are too injured to fight recklessly!
+You hit the worm.
+The worm is severely wounded.
+You hit the worm. Your headbutt misses the worm.
+The worm is severely wounded.
+The worm bites you.
+* * * LOW HITPOINT WARNING * * *
+You hit the worm but do no damage.
+The worm is severely wounded.
+The worm bites you!
+You die...
+
+            ###+####
+   #######  #.......#
+  .......#  #.......+
+ ........#  #.......#
+ ........#  #.......#
+ ........#  #.......#
+.........####(......#
+.......w@'..#.......#
+.........##.'.......#
+ ........####.......#
+ #########  ###'#####
+            #...#
+            #.###      ###
+            #.#        #..
+          ###'######## #..
+          #..........###..
+          +..........#.'..
+          #..........'.#..
+          #..........###..
+
+
+You could see a worm.
+
+Vanquished Creatures
+  2 giant geckos (D:1)
+  3 goblins (D:1)
+  2 hobgoblins (D:1)
+  A jackal (D:1)
+  4 bats (D:1)
+  3 giant newts (D:1)
+  3 kobolds (D:1)
+  4 rats (D:1)
+22 creatures vanquished.
+
+Vanquished Creatures (others)
+  5 toadstools (D:1)
+5 creatures vanquished.
+
+Grand Total: 27 creatures vanquished
+
+Notes
+Turn   | Place    | Note
+--------------------------------------------------------------
+     0 | D:1      | Crag, the Minotaur Warper, began the quest for the Orb.
+     0 | D:1      | Reached XP level 1. HP: 16/16 MP: 1/1
+    50 | D:1      | Reached skill level 3 in Maces & Flails
+   173 | D:1      | Reached XP level 2. HP: 20/23 MP: 1/1
+   429 | D:1      | Reached skill level 4 in Maces & Flails
+   639 | D:2      | Mangled by a worm
+
+
+Action                   || total
+-------------------------++-------
+Melee: Mace              ||    43
+
