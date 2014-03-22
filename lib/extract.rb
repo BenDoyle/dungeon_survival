@@ -38,10 +38,14 @@ class Extract
     return :final_turns if line =~ /Message History/
     return :monster_header if line == 'Vanquished Creatures'
     return :monster_summary if line =~ /\d+ creatures vanquished./
-    return :events if line == 'Notes'
+    return :events_header if line == 'Notes'
+    if line == '--------------------------------------------------------------' && state = :events_header
+      return :events_line
+    end
     return :action_summary if line =~ /Action\s+\|\| total/
 
     return :monster if state = :monster_header
+    return :events  if state = :events_line
 
     return state
   end
@@ -51,16 +55,36 @@ class Extract
     when :stats
       parse_stats(line)
     when :monsters
-      parse_monsters(line)
+      @monsters << parse_monsters(line)
     when :events
-      parse_events(line)
+      @events << parse_events(line)
     end
   end
 
-  EVENT              = /^\s+(\d+)\s+\|\s+(\w+):(\d{1,2})\s+\|\s+(.+)/
-
-
   def parse_stats(line)
+    version_re = /Dungeon Crawl Stone Soup version ([\.\d]+)/
+    if line =~ version_re
+      return {version: line.scan(version_re).first.first}
+    end
+
+    began_re = /Began as a (\w+) (\w+) on ([ \w,]+)./
+    if line =~ began_re
+      values = line.scan(began_re).first
+      return {
+        species:    values[0],
+        background: values[1],
+        start_date: values[2]
+      }
+    end
+
+    duration_re = /The game lasted (\d{2}):(\d{2}):(\d{2}) \((\d+) turns\)./
+    if line =~ duration_re
+      values = line.scan(duration_re).first
+      return {
+        game_duration_seconds: values[0].to_i*3600 + values[1].to_i*60 + values[2].to_i,
+        game_duration_turns: values[3].to_i
+      }
+    end
   end
 
   def parse_monster(line)
@@ -76,20 +100,12 @@ class Extract
   end
 
   def parse_events(line)
+    turn, branch, level, message = line.scan(/^(\d+)\s+\|\s+(\w+):?(\d{1,2})?\s+\|\s+(.+)/).first
+    {
+      turn: turn.to_i,
+      branch: branch,
+      level: [level.to_i, 1].max,
+      message: message
+    }
   end
-
-    #   case line
-    # when SINGULAR_MONSTER
-    #   monster = line.scan(SINGULAR_MONSTER).first
-    #   @monsters << {number: 1, monster: monster[1].strip} unless monster[1].strip.empty?
-    # when PLURAL_MONSTER
-    #   monster = line.scan(PLURAL_MONSTER).first
-    #   @monsters << {number: monster[0].strip.to_i, monster: monster[1].strip} unless monster[1].strip.empty?
-    # when EVENT
-    #   turn, branch, level, message = line.scan(EVENT).first
-    #   @events << {turn: turn, branch: branch, level: level, message: message}
-    # end
-
-
-
 end
