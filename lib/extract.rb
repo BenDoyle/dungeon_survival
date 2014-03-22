@@ -44,8 +44,8 @@ class Extract
     end
     return :action_summary if line =~ /Action\s+\|\| total/
 
-    return :monster if state = :monster_header
-    return :events  if state = :events_line
+    return :monster if state == :monster_header
+    return :events  if state == :events_line
 
     return state
   end
@@ -53,9 +53,9 @@ class Extract
   def parse_line(state, line)
     case state
     when :stats
-      parse_stats(line)
-    when :monsters
-      @monsters << parse_monsters(line)
+      @stats.merge!(parse_stats(line))
+    when :monster
+      @monsters << parse_monster(line)
     when :events
       @events << parse_events(line)
     end
@@ -85,6 +85,8 @@ class Extract
         game_duration_turns: values[3].to_i
       }
     end
+
+    return {}
   end
 
   def parse_monster(line)

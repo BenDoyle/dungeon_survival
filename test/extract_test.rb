@@ -74,4 +74,20 @@ class ExtractTest < Test::Unit::TestCase
   	assert_equal 639, stat[:game_duration_turns]
   end
 
+	def test_all_parse
+ 		morgue_file = File.join(File.dirname(__FILE__),'..','data','morgue-Crag-20140319-212609.txt')
+    extractor = Extract.new
+
+    extractor.parse_morgue_file(morgue_file)
+
+    puts
+    puts extractor.stats.inspect
+    puts
+    puts extractor.monsters.inspect
+    puts
+    puts extractor.events.inspect
+
+    assert False
+  end
+
 end
