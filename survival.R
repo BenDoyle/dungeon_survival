@@ -1,0 +1,5 @@
+library(survival)
+data<-data.frame(read.csv("/Users/ben/Code/dungeon_survival/out.csv", sep=',', header=F))
+data$event = rep(1,824)
+fit <- survfit(Surv(V1, event) ~ 1, data=data)
+plot(fit,xmax=1)
