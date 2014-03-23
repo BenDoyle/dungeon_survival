@@ -63,8 +63,7 @@ class ExtractTest < Test::Unit::TestCase
 
   def test_parse_stats_began
   	stat = Extract.new.parse_stats('Began as a Minotaur Warper on Mar 19, 2014.')
-  	assert_equal 'Minotaur', stat[:species]
-  	assert_equal 'Warper',   stat[:background]
+  	assert_equal 'Minotaur Warper', stat[:species_background]
   	assert_equal 'Mar 19, 2014', stat[:start_date]
   end
 
@@ -72,22 +71,6 @@ class ExtractTest < Test::Unit::TestCase
   	stat = Extract.new.parse_stats('The game lasted 00:01:37 (639 turns).')
   	assert_equal 97,  stat[:game_duration_seconds]
   	assert_equal 639, stat[:game_duration_turns]
-  end
-
-	def test_all_parse
- 		morgue_file = File.join(File.dirname(__FILE__),'..','data','morgue-Crag-20140319-212609.txt')
-    extractor = Extract.new
-
-    extractor.parse_morgue_file(morgue_file)
-
-    puts
-    puts extractor.stats.inspect
-    puts
-    puts extractor.monsters.inspect
-    puts
-    puts extractor.events.inspect
-
-    assert False
   end
 
 end
