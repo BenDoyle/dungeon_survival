@@ -14,13 +14,13 @@ class Extract
       begin
         line  = file.gets
         break unless line
-        line = line.strip
-
-        if line.ascii_only? || !line.empty?
-          state = new_state(state, line)
-          parse_line(state, line)
+        if line.ascii_only?
+          line = line.strip
+          unless line.empty?
+            state = new_state(state, line)
+            parse_line(state, line)
+          end
         end
-
       end while true
     end
   end
@@ -37,9 +37,9 @@ class Extract
     return :abilities if line =~ /Innate Abilities, Weirdness & Mutations/
     return :final_turns if line =~ /Message History/
     return :monster_header if line == 'Vanquished Creatures'
-    return :monster_summary if line =~ /\d+ creatures vanquished./
+    return :monster_summary if line =~ /\d+ creatures? vanquished./
     return :events_header if line == 'Notes'
-    if line == '--------------------------------------------------------------' && state = :events_header
+    if line == '--------------------------------------------------------------' && state == :events_header
       return :events_line
     end
     return :action_summary if line =~ /Action\s+\|\| total/
@@ -67,22 +67,21 @@ class Extract
       return {version: line.scan(version_re).first.first}
     end
 
-    began_re = /Began as a (\w+) (\w+) on ([ \w,]+)./
+    began_re = /Began as a ([ \w]+) on ([ \w,]+)./
     if line =~ began_re
       values = line.scan(began_re).first
       return {
-        species:    values[0],
-        background: values[1],
-        start_date: values[2]
+        species_background: values[0],
+        start_date:         values[1]
       }
     end
 
-    duration_re = /The game lasted (\d{2}):(\d{2}):(\d{2}) \((\d+) turns\)./
+    duration_re = /game lasted (\d?)d?a?y? ?(\d{2}):(\d{2}):(\d{2}) \((\d+) turns\)./
     if line =~ duration_re
       values = line.scan(duration_re).first
       return {
-        game_duration_seconds: values[0].to_i*3600 + values[1].to_i*60 + values[2].to_i,
-        game_duration_turns: values[3].to_i
+        game_duration_seconds: values[0].to_i*3600*24 + values[1].to_i*3600 + values[2].to_i*60 + values[3].to_i,
+        game_duration_turns: values[4].to_i
       }
     end
 
