@@ -56,6 +56,15 @@ class ExtractTest < Test::Unit::TestCase
   	assert_equal "Identified the +1 pair of gloves of Deuhuiqaoc {Str+1 Dex+1} (Okawaru gifted it to you on level 1 of the Depths)", event[:message]
   end
 
+  def test_parse_events4
+    event  = Extract.new.parse_events("1 | D:$      | Got out of the dungeon alive.")
+    puts event
+    assert_equal 1, event[:turn]
+    assert_equal "D", event[:branch]
+    assert_equal 0, event[:level]
+    assert_equal "Got out of the dungeon alive.", event[:message]
+  end
+
   def test_parse_stats_version
   	stat = Extract.new.parse_stats('Dungeon Crawl Stone Soup version 0.13.1 (tiles) character file.')
   	assert_equal '0.13.1', stat[:version]
