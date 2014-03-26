@@ -101,11 +101,14 @@ class Extract
   end
 
   def parse_events(line)
-    turn, branch, level, message = line.scan(/^(\d+)\s+\|\s+(\w+):?(\d{1,2})?\s+\|\s+(.+)/).first
+    turn, branch, level, message = line.scan(/^(\d+)\s+\|\s+(\w+):?(\d{1,2}|\$)?\s+\|\s+(.+)/).first
+    level ||= 1
+    level ==  '$' ? 0 : level
+    level = level.to_i
     {
       turn: turn.to_i,
       branch: branch,
-      level: [level.to_i, 1].max,
+      level: level,
       message: message
     }
   end
