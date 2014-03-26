@@ -42,7 +42,7 @@ class Extract
     if line == '--------------------------------------------------------------' && state == :events_header
       return :events_line
     end
-    return :action_summary if line =~ /Action\s+\|\| total/
+    return :action_summary if line =~ /Action\s+\|/
 
     return :monster if state == :monster_header
     return :events  if state == :events_line
