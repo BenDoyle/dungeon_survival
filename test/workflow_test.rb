@@ -6,39 +6,75 @@ class WorkflowTest < Test::Unit::TestCase
 		Dir['/Users/ben/Library/Application Support/Dungeon\ Crawl\ Stone\ Soup/morgue/*.txt']
 	end
 
-  def test_parse_monster_unique
-  	w = Workflow.new
-  	monster  = w.parse_monster("Ijyb (D:2)")
-  	assert_equal "Ijyb", monster[:type]
-  	assert_equal 1, monster[:number]
+	def test_get_all_events
+		input = [
+			"Notes",
+			"Turn   | Place   | Note",
+			"--------------------------------------------------------------",
+			"     0 | D:1     | Ben, the Deep Dwarf Necromancer, began the quest for the Orb.",
+			"     0 | D:1     | Reached XP level 1. HP: 11/11 MP: 3/3",
+			"   136 | D:1     | Reached skill 5 in Necromancy",
+			"   197 | D:1     | Reached XP level 2. HP: 17/17 MP: 2/4",
+			"  1410 | D:2     | Found a sparkling altar of Nemelex Xobeh.",
+			"  1436 | D:2     | Reached XP level 3. HP: 18/24 MP: 5/5",
+			"  1568 | D:3     | Noticed Sigmund",
+			"  1876 | D:3     | Mangled by Sigmund",
+			""
+		]
+		output = Workflow.new.get_all_events(input)
+
+		assert_equal 8, output.size
+		assert_equal [0, "D", 1, "Ben, the Deep Dwarf Necromancer, began the quest for the Orb."], output.first
+		assert_equal [1876, "D", 3, "Mangled by Sigmund"], output.last
+	end
+
+	def test_events_begin
+		w = Workflow.new
+		assert_equal true, w.event_begin?("--------------------------------------------------------------")
+		assert_equal false, w.event_begin?("------------------------------------X-------------------------")
+	end	
+  
+  def test_parse_event
+		w = Workflow.new
+  	assert_equal nil, w.parse_event("junk")
+  	assert_equal [0, "D", 1, "Crag, the Minotaur Warper, began the quest for the Orb."], w.parse_event("0 | D:1      | Crag, the Minotaur Warper, began the quest for the Orb.")
+  	assert_equal [52941, "IceCv", 1, "Entered an ice cave"], w.parse_event("52941 | IceCv    | Entered an ice cave")
+  	assert_equal [85973, "Depths", 1, "Identified the +1 pair of gloves of Deuhuiqaoc {Str+1 Dex+1} (Okawaru gifted it to you on level 1 of the Depths)"], w.parse_event("85973 | Depths:1 | Identified the +1 pair of gloves of Deuhuiqaoc {Str+1 Dex+1} (Okawaru gifted it to you on level 1 of the Depths)")
+  	assert_equal [1, "D", 0, "Got out of the dungeon alive."], w.parse_event("1 | D:$      | Got out of the dungeon alive.")
   end
 
-  def test_parse_monster_singe
-  	w = Workflow.new
-  	monster  = w.parse_monster("An ooze (D:1)")
-  	assert_equal "ooze", monster[:type]
-  	assert_equal 1, monster[:number]
-  end
+	def test_get_monsters
+		input = [
+			"junk",
+			"Vanquished Creatures",
+  		"  A giant gecko (D:1)",
+			"38 creatures vanquished.",
+			"",
+			"Vanquished Creatures (others)",
+			"  3 toadstools (D:1)",
+			"4 creatures vanquished.",
+			"other junk"
+		]
+		output = Workflow.new.get_monsters(input)
 
-  def test_parse_monster_singe2
-  	w = Workflow.new
-  	monster  = w.parse_monster("A giant gecko (D:2)")
-  	assert_equal "giant gecko", monster[:type]
-  	assert_equal 1, monster[:number]
-  end
+		assert_equal [[1, "giant gecko"]], output['yours']
+		assert_equal [[3, 'toadstool']], output['others']
+	end
 
-  def test_parse_monster_multiple
+	def test_indented?
   	w = Workflow.new
-  	monster  = w.parse_monster("4 giant newts")
-  	assert_equal "giant newt", monster[:type]
-  	assert_equal 4, monster[:number]
-  end
+  	assert_equal true,  w.indented?("  x")
+  	assert_equal false, w.indented?("An ooze (D:1)")
+	end
 
-  def test_parse_monster_multiple2
+  def test_parse_monster
   	w = Workflow.new
-  	monster  = w.parse_monster("2 hobgoblins (D:1)")
-  	assert_equal "hobgoblin", monster[:type]
-  	assert_equal 2, monster[:number]
+  	assert_equal nil, w.parse_monster("junk")
+  	assert_equal [1, "Ijyb"], w.parse_monster("  Ijyb (D:2)")
+  	assert_equal [1, "ooze"], w.parse_monster("  An ooze (D:1)")
+  	assert_equal [1, "giant gecko"], w.parse_monster("  A giant gecko (D:1)")
+  	assert_equal [4, "giant newt"], w.parse_monster("  4 giant newts")
+  	assert_equal [2, "hobgoblin"], w.parse_monster("  2 hobgoblins (D:1)")
   end
 
 	def test_get_monsters_vanquished
