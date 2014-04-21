@@ -64,8 +64,8 @@ class Workflow
 			key = nil if key && get_monsters_vanquished(line)
 			key = get_monster_type(line) unless key
 			if key && indented?(line)
-				out[key] ||= []
-				out[key]  <<  parse_monster(line)
+				out[key.to_sym] ||= []
+				out[key.to_sym]  <<  parse_monster(line)
 			end
 		end
 		out
@@ -103,5 +103,93 @@ class Workflow
 		end
 		events
 	end
+
+	def parse_message(message)
+    matches = [
+	    # game
+	    [:game, /^(\w+), the ([ \w]+), began the quest for the Orb./],
+	    [:game, /^Upgraded the game from (\d+\.\d+\.\d+) to (\d+\.\d+\.\d+)/],
+
+	    # died
+	    [:death, /^Annihilated by (.+)/],
+	    [:death, /^Blown up by (.+)/],
+	    [:death, /^Demolished by (.+)/],
+	    [:death, /^Mangled by (.+)/],
+	    [:death, /^Slain by (.+)/],
+	    [:death, /^Killed( from afar)? by an? ([ \w]+)(... set off by themselves)?/],
+	    [:death, /^Rolled over by (.+)/],
+	    [:death, /^Killed themsel(f|ves) with bad targetting/],
+	    [:death, /^Quit the game/],
+	    [:death, /^Safely got out of the dungeon./],
+	    [:death, /^Starved to death/],
+	    [:death, /^Succumbed to (.+) (sting|poison)/],
+	    [:death, /^Was drained of all life/],
+
+	    # monsters
+	    [:monster, /^Noticed\s(\d+|An?\s+)?([ a-zA-Z]+)/],
+	    [:monster, /^Defeated ([ \w]+)'s ghost/],
+	    [:monster, /^Defeated ([ \w]+)/],
+	    [:monster, /^Killed ([ \w]+)'s ghost/],
+	    [:monster, /^Killed ([ \w]+)/],
+	    [:monster, /^Gained ([ \w]+) as an ally/],
+	    [:monster, /^Paralysed by ([ \w]+) for \d+ turns/],
+	    [:monster, /^Shot with ([ \w]+) by ([ \w]+)/],
+	    [:monster, /^Splashed by( a jelly\'s)? acid/],
+	    [:monster, /^Your ally ([ \w]+)? died/],
+
+	    # character
+	    [:character, /^Reached XP level (\d{1,2})/],
+	    [:character, /^Reached skill( level)? (\d{1,2}) in (\w+)/],
+	    [:character, /^Learned a level (\d) spell: ([ \w]+)/],
+	    [:character, /^Gained mutation\: ([ \w\d\+\-\(\),]+).( [mutagenic glow])?/],
+	    [:character, /^Lost mutation\: ([ \w\d\+\-\(\),]+).( [potion of cure mutation])?/],
+
+	    # religion
+	    [:religion, /^Found an? [ \w-]+ altar of ([ \w]+)./],
+	    [:religion, /^Became a worshipper of ([ \w]+)( the [\w]+)?/],
+	    [:religion, /^Fell from the grace of ([ \w]+)/],
+	    [:religion, /^Acquired ([ \w]+)\'s (\w+) power/],
+	    [:religion, /^([ \w]+) protects you from harm!/],
+	    [:religion, /^Offered knowledge of (.+) by Vehumet./],
+	    [:religion, /^Received a gift from ([ \w]+)/],
+	    [:religion, /^Was placed under penance by (.+)/],
+	    [:religion, /^Was forgiven by (.+)/],
+
+	    # place
+	    [:place, /^Entered Level (\d{1,2}) of ([ \w]+)/],
+	    [:place, /^Found a staircase to the ([ \w]+)./],
+	    [:place, /^Found a ([ \w]+)./], # feature
+	    [:place, /^Found (.+)./], # shop
+	    [:place, /^You fall through a shaft( for (\d) floors)?!/],
+	    [:place, /^You paid a toll of (\d+) gold to enter a ziggurat./],
+	    [:place, /^You pass through the gate./],
+
+	    # items
+	    [:items, /^Got ([ \w]+)/],
+	    [:items, /^Identified ([ \d\w\{\}\+\-\']+)( \(You found it on level (\d{1,2}) of ([ \w]+)\))?/],
+	    [:items, /^Bought ([ \d\w\{\}\+\-\',\(\)]+) for (\d+) gold pieces/],
+
+	    [:void, /^Entered (.+)/],
+	    [:void, /^Escaped (.+)/],
+	    [:void, /^Banished ([ \w]+)/],
+	    [:void, /^Cast into the Abyss \((.+)\)/],
+	    [:void, /^Voluntarily entered the Abyss./],
+	    [:void, /^You are cast into the Abyss!/],
+		]
+
+		matches.each do |match|
+			if message =~ match.last
+				return([
+					match.first,
+					message.scan(match.last).first
+				])
+			end
+		end
+		return([
+			:unknown,
+			message
+		])
+  end
+
 
 end

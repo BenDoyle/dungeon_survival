@@ -6,6 +6,12 @@ class WorkflowTest < Test::Unit::TestCase
 		Dir['/Users/ben/Library/Application Support/Dungeon\ Crawl\ Stone\ Soup/morgue/*.txt']
 	end
 
+	def test_parse_message
+		w = Workflow.new
+  	assert_equal [:unknown, "junk"], w.parse_message("junk")
+  	assert_equal [:game, ["Ben", "Deep Dwarf Necromancer"]], w.parse_message("Ben, the Deep Dwarf Necromancer, began the quest for the Orb.")
+	end
+
 	def test_get_all_events
 		input = [
 			"Notes",
@@ -57,8 +63,8 @@ class WorkflowTest < Test::Unit::TestCase
 		]
 		output = Workflow.new.get_monsters(input)
 
-		assert_equal [[1, "giant gecko"]], output['yours']
-		assert_equal [[3, 'toadstool']], output['others']
+		assert_equal [[1, "giant gecko"]], output[:yours]
+		assert_equal [[3, 'toadstool']], output[:others]
 	end
 
 	def test_indented?
