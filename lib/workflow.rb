@@ -106,11 +106,9 @@ class Workflow
 
 	def parse_message(message)
     matches = [
-	    # game
-	    [:game, /^(\w+), the ([ \w]+), began the quest for the Orb./],
-	    [:game, /^Upgraded the game from (\d+\.\d+\.\d+) to (\d+\.\d+\.\d+)/],
+	    [:start, [:name, :species_background], /^(\w+), the ([ \w]+), began the quest for the Orb./],
+	    [:upgrade, [:from, :to], /^Upgraded the game from (\d+\.\d+\.\d+) to (\d+\.\d+\.\d+)/],
 
-	    # died
 	    [:death, /^Annihilated by (.+)/],
 	    [:death, /^Blown up by (.+)/],
 	    [:death, /^Demolished by (.+)/],
@@ -118,11 +116,12 @@ class Workflow
 	    [:death, /^Slain by (.+)/],
 	    [:death, /^Killed( from afar)? by an? ([ \w]+)(... set off by themselves)?/],
 	    [:death, /^Rolled over by (.+)/],
+	    [:death, /^Succumbed to (.+) (sting|poison)/],
+
 	    [:death, /^Killed themsel(f|ves) with bad targetting/],
 	    [:death, /^Quit the game/],
 	    [:death, /^Safely got out of the dungeon./],
 	    [:death, /^Starved to death/],
-	    [:death, /^Succumbed to (.+) (sting|poison)/],
 	    [:death, /^Was drained of all life/],
 
 	    # monsters
@@ -175,20 +174,24 @@ class Workflow
 	    [:void, /^Cast into the Abyss \((.+)\)/],
 	    [:void, /^Voluntarily entered the Abyss./],
 	    [:void, /^You are cast into the Abyss!/],
+
+	    [:unknown, [], /.*/]
 		]
 
 		matches.each do |match|
 			if message =~ match.last
-				return([
-					match.first,
-					message.scan(match.last).first
-				])
+				event = {
+					type: match.first,
+					message: message
+				}
+				results = message.scan(match.last).first
+				match[1].each_with_index do |field, index|
+					event[field] = results[index]
+				end
+				return event
 			end
 		end
-		return([
-			:unknown,
-			message
-		])
+
   end
 
 

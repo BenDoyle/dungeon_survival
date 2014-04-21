@@ -8,8 +8,13 @@ class WorkflowTest < Test::Unit::TestCase
 
 	def test_parse_message
 		w = Workflow.new
-  	assert_equal [:unknown, "junk"], w.parse_message("junk")
-  	assert_equal [:game, ["Ben", "Deep Dwarf Necromancer"]], w.parse_message("Ben, the Deep Dwarf Necromancer, began the quest for the Orb.")
+		message = "junk"
+  	assert_equal({:type => :unknown, message: message}, w.parse_message(message))
+
+		message = "Ben, the Deep Dwarf Necromancer, began the quest for the Orb."
+  	assert_equal({type: :start, message: message, name: "Ben", species_background: "Deep Dwarf Necromancer"}, w.parse_message(message))
+		# assert_equal [type: :death, ["an ogre"]], w.parse_message("Annihilated by an ogre")
+
 	end
 
 	def test_get_all_events
