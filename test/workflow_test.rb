@@ -6,15 +6,90 @@ class WorkflowTest < Test::Unit::TestCase
 		Dir['/Users/ben/Library/Application Support/Dungeon\ Crawl\ Stone\ Soup/morgue/*.txt']
 	end
 
-	def test_parse_message
+	def test_parse_basic
 		w = Workflow.new
+
 		message = "junk"
   	assert_equal({:type => :unknown, message: message}, w.parse_message(message))
 
-		message = "Ben, the Deep Dwarf Necromancer, began the quest for the Orb."
-  	assert_equal({type: :start, message: message, name: "Ben", species_background: "Deep Dwarf Necromancer"}, w.parse_message(message))
-		# assert_equal [type: :death, ["an ogre"]], w.parse_message("Annihilated by an ogre")
+		message  = "Ben, the Deep Dwarf Necromancer, began the quest for the Orb."
+  	expected = {
+  		type: :start,
+  		message: message,
+  		name: "Ben",
+  		species_background: "Deep Dwarf Necromancer"
+  	}
+  	parsed   = w.parse_message(message)
+  	assert_equal expected, parsed
+  end
 
+	def test_parse_died
+		message  = "Annihilated by an ogre"
+  	expected = {
+  		type: :died,
+  		message: message,
+  		cause: "an ogre"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Killed from afar by an orc wizard"
+  	expected = {
+  		type: :died,
+  		message: message,
+  		cause: "an orc wizard"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Succumbed to a worker ant's poison"
+  	expected = {
+  		type: :died,
+  		message: message,
+  		cause: "a worker ant"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Killed themself with bad targetting"
+  	expected = {
+  		type: :died,
+  		message: message,
+  		cause: "self"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_parse_noticed
+		message  = "Noticed a spriggan baker"
+  	expected = {
+  		type: :noticed_monster,
+  		message: message,
+  		monster: "spriggan baker"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_parse_killed
+		message  = "Defeated Purgy"
+  	expected = {
+  		type: :killed_monster,
+  		message: message,
+  		monster: "Purgy"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Killed Zappy's ghost"
+  	expected = {
+  		type: :killed_monster,
+  		message: message,
+  		monster: "Zappy's ghost"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
 	end
 
 	def test_get_all_events
