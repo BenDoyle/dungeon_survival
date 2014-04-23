@@ -333,8 +333,164 @@ class WorkflowTest < Test::Unit::TestCase
   	}
   	parsed = Workflow.new.parse_message(message)
   	assert_equal expected, parsed
+
+		message  = "Found a glowing drain."
+  	expected = {
+  		type: :found_entrance,
+  		message: message,
+  		branch: "sewer"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
 	end
 
+	def test_found_shop
+		message  = "Found Xeah's Antique Armour Emporium."
+  	expected = {
+  		type: :found_shop,
+  		message: message,
+  		shop: "Xeah's Antique Armour Emporium"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_shaft
+		message  = "You fall through a shaft for 2 floors!"
+  	expected = {
+  		type: :shaft,
+  		message: message,
+  		floors: "2"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "You fall through a shaft!"
+  	expected = {
+  		type: :shaft,
+  		message: message,
+  		floors: "1"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_got_item
+		message  = "Got a twisted helmet"
+  	expected = {
+  		type: :got_item,
+  		message: message,
+  		item: "a twisted helmet"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+	
+	def test_bought_item
+		message  = "Bought a shiny buckler for 75 gold pieces"
+  	expected = {
+  		type: :bought_item,
+  		message: message,
+  		item: "a shiny buckler",
+  		gold: "75"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+	
+	def test_identified_item
+		message  = "Identified the cursed +1 helmet of Daicucs {+Blink rF+ Dex-1 SInv} (You found it on level 10 of the Dungeon)"
+  	expected = {
+  		type: :identified_item,
+  		message: message,
+  		item: "the cursed +1 helmet of Daicucs {+Blink rF+ Dex-1 SInv}"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+	
+	def test_banished_monster
+		message  = "Banished Grinder"
+  	expected = {
+  		type: :banished_monster,
+  		message: message,
+  		monster: "Grinder"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+	
+	def test_entered
+		message  = "Entered an ice cave"
+  	expected = {
+  		type: :entered,
+  		message: message,
+  		branch: "an ice cave",
+  		level: "1"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Entered an ice cave"
+  	expected = {
+  		type: :entered,
+  		message: message,
+  		branch: "an ice cave",
+  		level: "1"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Cast into the Abyss (a Zot trap)"
+  	expected = {
+  		type: :entered,
+  		message: message,
+  		branch: "abyss",
+  		level: "1"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Voluntarily entered the Abyss."
+  	expected = {
+  		type: :entered,
+  		message: message,
+  		branch: "abyss",
+  		level: "1"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+	
+	def test_exited
+		message  = "Escaped Pandemonium"
+  	expected = {
+  		type: :exited,
+  		message: message,
+  		branch: "pandemonium"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Escaped the Abyss"
+  	expected = {
+  		type: :exited,
+  		message: message,
+  		branch: "abyss"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "You pass through the gate."
+  	expected = {
+  		type: :exited,
+  		message: message,
+  		branch: "abyss"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+	
 	def test_get_all_events
 		input = [
 			"Notes",

@@ -13,7 +13,7 @@ class MessageParser
 			}
 			results = @regexp.match(message)
 			results.names.each do |name|
-				event[name.to_sym] = results[name]
+				event[name.to_sym] = results[name] && results[name].strip
 			end
 			@defaults.each_pair do |key, value|
 				event[key.to_sym] = event[key.to_sym] || value
