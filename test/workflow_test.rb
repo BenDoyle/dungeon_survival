@@ -92,6 +92,249 @@ class WorkflowTest < Test::Unit::TestCase
   	assert_equal expected, parsed
 	end
 
+	def test_parse_gained_ally
+		message  = "Gained Boruk as an ally"
+  	expected = {
+  		type: :gained_ally,
+  		message: message,
+  		monster: "Boruk"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_parse_lost_ally
+		message  = "Your ally Boghold died"
+  	expected = {
+  		type: :lost_ally,
+  		message: message,
+  		monster: "Boghold"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_parse_paralysed
+		message  = "Paralysed by a great orb of eyes for 5 turns"
+  	expected = {
+  		type: :paralysed,
+  		message: message,
+  		monster: "a great orb of eyes"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_parse_shot
+		message  = "Shot with a runed arrow by a centaur warrior"
+  	expected = {
+  		type: :shot,
+  		message: message,
+  		with: "a runed arrow",
+  		monster: "a centaur warrior"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Splashed by a jelly's acid"
+  	expected = {
+  		type: :shot,
+  		message: message,
+  		with: 'acid',
+  		monster: "a jelly"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_parse_xp
+		message  = "Reached XP level 6. HP: 38/38 MP: 5/5"
+  	expected = {
+  		type: :xp,
+  		message: message,
+  		level: "6",
+  		skill: "level"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Reached skill level 5 in Armour"
+  	expected = {
+  		type: :xp,
+  		message: message,
+  		level: "5",
+  		skill: "Armour"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_learned_spell
+		message  = "Learned a level 2 spell: Blink"
+  	expected = {
+  		type: :learned_spell,
+  		message: message,
+  		spell: "Blink"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_gained_mutation
+		message  = "Gained mutation: Your wings are large and strong. [gargoyle growth]"
+  	expected = {
+  		type: :gained_mutation,
+  		message: message,
+  		mutation: "Your wings are large and strong"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_lost_mutation
+		message  = "Lost mutation: Your mind is acute (Int +1)."
+  	expected = {
+  		type: :lost_mutation,
+  		message: message,
+  		mutation: "Your mind is acute (Int +1)"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_found_altar
+		message  = "Found a viscous altar of Jiyva."
+  	expected = {
+  		type: :found_altar,
+  		message: message,
+  		god: "Jiyva"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_joined_religion
+		message  = "Became a worshipper of Makhleb the Destroyer"
+  	expected = {
+  		type: :joined_religion,
+  		message: message,
+  		god: "Makhleb"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_fell_from_grace
+		message  = "Fell from the grace of Okawaru"
+  	expected = {
+  		type: :fell_from_grace,
+  		message: message,
+  		god: "Okawaru"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_god_power
+		message  = "Acquired Okawaru's first power"
+  	expected = {
+  		type: :god_power,
+  		message: message,
+  		god: "Okawaru",
+  		number: "first"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_god_protection
+		message  = "Beogh protects you from harm!"
+  	expected = {
+  		type: :god_protection,
+  		message: message,
+  		god: "Beogh"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_vehumet_spell
+		message  = "Offered knowledge of Shock by Vehumet."
+  	expected = {
+  		type: :vehumet_spell,
+  		message: message,
+  		spell: "Shock"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_god_gift
+		message  = "Received a gift from Okawaru"
+  	expected = {
+  		type: :god_gift,
+  		message: message,
+  		god: "Okawaru"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_penance
+		message  = "Was placed under penance by Beogh"
+  	expected = {
+  		type: :penance,
+  		message: message,
+  		god: "Beogh"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_forgiven
+		message  = "Was forgiven by Okawaru"
+  	expected = {
+  		type: :forgiven,
+  		message: message,
+  		god: "Okawaru"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_entered
+		message  = "Entered Level 10 of the Dungeon"
+  	expected = {
+  		type: :entered,
+  		message: message,
+  		level: "10",
+  		branch: "the Dungeon"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "You paid a toll of 4770 gold to enter a ziggurat."
+  	expected = {
+  		type: :entered,
+  		message: message,
+  		level: "1",
+  		branch: "ziggurat"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
+	def test_found_entrance
+		message  = "Found a staircase to the Ecumenical Temple."
+  	expected = {
+  		type: :found_entrance,
+  		message: message,
+  		branch: "Ecumenical Temple"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
 	def test_get_all_events
 		input = [
 			"Notes",
