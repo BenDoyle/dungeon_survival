@@ -7,7 +7,8 @@ class Workflow
   end
 
   def read_file(filename)
-    File.readlines(filename).map{|line| line.gsub(/\n/, "")}
+    # some of the maps have non-ascii characters, which ruby doesn't like
+    File.readlines(filename).select{|line|line.ascii_only?}.map{|line|line.gsub(/\n/, "")}
   end
 
   def get_version(line)
