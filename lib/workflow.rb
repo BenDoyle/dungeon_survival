@@ -11,9 +11,15 @@ class Workflow
     File.readlines(filename).select{|line|line.ascii_only?}.map{|line|line.gsub(/\n/, "")}
   end
 
-  def get_version(line)
-    m = line.scan(/Dungeon Crawl Stone Soup version ([\.\d]+)/) 
-    m && m.first && m.first.first
+  def get_mode_and_version(line)
+    m = /(?<mode>[ \w]+) version (?<version>[\.\d]+)/.match(line)
+    if m
+      event = {}
+      m.names.each do |name|
+        event[name.to_sym] = m[name] && m[name].strip
+      end
+      return event
+    end
   end
 
   def get_start_date(line)

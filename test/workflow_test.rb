@@ -591,9 +591,10 @@ class WorkflowTest < Test::Unit::TestCase
 
 	def test_get_version
 		w = Workflow.new
-		assert_equal '0.7.1', w.get_version(" Dungeon Crawl Stone Soup version 0.7.1-1-g7ce9b19 character file.")
-		assert_equal '0.13.1', w.get_version(" Dungeon Crawl Stone Soup version 0.13.1 (tiles) character file.")
-		assert_equal nil, w.get_version("junk")
+		assert_equal({mode: 'Dungeon Crawl Stone Soup', version: '0.7.1'},  w.get_mode_and_version(" Dungeon Crawl Stone Soup version 0.7.1-1-g7ce9b19 character file."))
+		assert_equal({mode: 'Dungeon Crawl Stone Soup', version: '0.13.1'}, w.get_mode_and_version(" Dungeon Crawl Stone Soup version 0.13.1 (tiles) character file."))
+		assert_equal({mode: 'Dungeon Sprint DCSS',      version: '0.14'},   w.get_mode_and_version(" Dungeon Sprint DCSS version 0.14-a0-1128-gf332958 (tiles) character file."))
+		assert_equal nil, w.get_mode_and_version("junk")
 	end
 
 	def test_read_file
