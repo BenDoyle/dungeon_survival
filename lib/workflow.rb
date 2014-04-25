@@ -23,7 +23,7 @@ class Workflow
   end
 
   def get_start_date(line)
-    m = line.scan(/Began as a [ \w]+ on ([ \w,]+)./)
+    m = line.scan(/Began as an? [ \w]+ on ([ \w,]+)./)
     m && m.first && m.first.first && Date.parse(m.first.first).to_s
   end
 
