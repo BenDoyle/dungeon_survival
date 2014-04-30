@@ -3,7 +3,7 @@ require 'test_helper'
 class DataTest < Test::Unit::TestCase
 	
   def file_handles
-    Dir['/Users/ben/Library/Application Support/Dungeon\ Crawl\ Stone\ Soup/morgue/*.txt']
+    Dir[File.join(File.dirname(__FILE__),'..','..','dcss_morgue','*.txt')]
   end
 
 
