@@ -504,7 +504,14 @@ class WorkflowTest < Test::Unit::TestCase
 			"  1436 | D:2     | Reached XP level 3. HP: 18/24 MP: 5/5",
 			"  1568 | D:3     | Noticed Sigmund",
 			"  1876 | D:3     | Mangled by Sigmund",
-			""
+			"",
+			"",
+			"Action                   |  1- 3 |  4- 6 |  7- 9 || total",
+			"-------------------------+-------+-------+-------++-------",
+			"Melee: Long sword        |   113 |   196 |   120 ||   429",
+			" Abil: Dig               |     3 |       |       ||     3",
+			"  Use: Scroll            |       |     8 |       ||     8",
+			"       Potion            |       |     2 |     1 ||     3"
 		]
 		output = Workflow.new.get_all_events(input)
 

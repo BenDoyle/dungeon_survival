@@ -105,6 +105,7 @@ class Workflow
     ready = false
     lines.each do |line|
       if ready
+        return events if line.empty?
         event = parse_event(line) 
         events << event if event
       end
