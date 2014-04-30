@@ -23,6 +23,16 @@ class WorkflowTest < Test::Unit::TestCase
   	assert_equal expected, parsed
   end
 
+	def test_near_death
+		message  = "HP: 3/84 [orc knight/orcish trident of reaching (19)]"
+  	expected = {
+  		type: :near_death,
+  		message: message
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+	end
+
 	def test_parse_died
 		message  = "Annihilated by an ogre"
   	expected = {
@@ -56,6 +66,24 @@ class WorkflowTest < Test::Unit::TestCase
   		type: :died,
   		message: message,
   		cause: "self"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Hit by an orcish club thrown by a goblin"
+  	expected = {
+  		type: :died,
+  		message: message,
+  		cause: "goblin"
+  	}
+  	parsed = Workflow.new.parse_message(message)
+  	assert_equal expected, parsed
+
+		message  = "Engulfed by an ice statue's freezing vapour"
+  	expected = {
+  		type: :died,
+  		message: message,
+  		cause: "ice statue"
   	}
   	parsed = Workflow.new.parse_message(message)
   	assert_equal expected, parsed
