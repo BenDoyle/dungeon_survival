@@ -6,19 +6,18 @@ class DataTest < Test::Unit::TestCase
     Dir[File.join(File.dirname(__FILE__),'..','..','dcss_morgue','*.txt')]
   end
 
-
   def test_parsers
 		w = Workflow.new
+    events = []
 
     file_handles.select{|file|w.log_filter(file)}.each do |file|
-      
       lines = w.read_file(file)
-      
-      version = w.get_mode_and_version(lines.first)
-
-      # puts version
-
+      events += w.get_all_events(lines)
     end
+
+    puts events.size
+
+    puts events.map{|e|w.parse_message(e[3])}.select{|e|e[:type] == :unknown}.map{|e|e[:message]}.sort
 
 	end
 end
