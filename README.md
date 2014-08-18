@@ -3,7 +3,7 @@ Dungeon Survival
 
 Parse DCSS logfiles, extract event data
 
-## TODO
+## TODO ([Kimball](http://www.kimballgroup.com/about-kimball-group/)-ize)
 
 - initial strategy of getting all data from logfiles is flawed
 - instead, build dimensions from souce
