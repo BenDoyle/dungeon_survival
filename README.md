@@ -1,7 +1,7 @@
 Dungeon Survival
 ================
 
-Parse DCSS logfiles, extract event data
+Parse Dungeon Crawl Stone Soup logfiles, extract event data
 
 ## TODO ([Kimball](http://www.kimballgroup.com/about-kimball-group/)-ize)
 
