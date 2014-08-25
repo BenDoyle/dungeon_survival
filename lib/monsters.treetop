@@ -1,0 +1,46 @@
+grammar Monsters
+  
+#  rule monsters
+#  	monster*
+#  end
+
+#  rule monster
+#    '{' row1 row2 row3 row4 row5 row6 row7 row8 row9 '}'
+#  end
+
+  rule row1
+  	monster_id comma display_character comma display_colour comma name comma
+  end
+
+  rule monster_id
+  	[A-Z_]+
+  end
+
+  rule display_character
+  	'\'' . '\''
+  end
+
+  rule display_colour
+  	[A-Z_]+
+  end
+
+  rule name
+  	"\"" [a-zA-Z ]+ "\""
+  end
+
+  rule comma
+  	raw_comma space
+  end
+
+  rule space
+  	' '*
+  end
+
+  rule raw_comma
+  	','
+  end
+
+end
+
+
+
