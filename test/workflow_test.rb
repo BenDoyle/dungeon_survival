@@ -632,11 +632,6 @@ class WorkflowTest < Test::Unit::TestCase
 		assert_equal nil, w.get_mode_and_version("junk")
 	end
 
-	def test_read_file
-		w = Workflow.new
-		assert_equal %w[foo bar], w.read_file(File.join(File.dirname(__FILE__),'..','fixture','text.txt'))
-	end
-
 	def test_filter
 		w = Workflow.new
 		assert_equal true, w.log_filter("morgue-Zappy-20140217-205117.txt")
