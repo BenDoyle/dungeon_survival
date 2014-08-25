@@ -9,23 +9,31 @@ grammar Monsters
 #  end
 
   rule row1
-  	monster_id comma display_character comma display_colour comma name comma
+  	monster_id comma quoted_display_character comma display_colour comma quoted_name comma
   end
 
   rule monster_id
   	[A-Z_]+
   end
 
+  rule quoted_display_character
+  	'\'' display_character '\''
+  end
+
   rule display_character
-  	'\'' . '\''
+    .
   end
 
   rule display_colour
   	[A-Z_]+
   end
 
+  rule quoted_name
+  	"\"" name "\""
+  end
+
   rule name
-  	"\"" [a-zA-Z ]+ "\""
+    [a-zA-Z ]+
   end
 
   rule comma
