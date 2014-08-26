@@ -17,6 +17,8 @@ Parse Dungeon Crawl Stone Soup logfiles, extract event data
 - Species / Background
 - Skills
 - Spells
-- Special Items
+- Gods
+- Mutations
+- Special Items?
 - Time / Turns?
 
