@@ -27,4 +27,12 @@ class WorkflowTest < Test::Unit::TestCase
 		assert_equal 'M_BATTY', elements[1].elements[1].elements[3].text_value
 		assert_equal 'M_NO_POLY_TO', elements[1].elements[2].elements[3].text_value
 	end
+
+	def test_row2_single
+		row2 = "M_SENSE_INVIS,"
+
+		elements = parser.parse(row2).elements
+
+		assert_equal 'M_SENSE_INVIS', elements[0].text_value
+	end
 end
