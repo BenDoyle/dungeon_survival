@@ -1,5 +1,5 @@
 grammar Monsters
-  
+
 #  rule monsters
 #  	monster*
 #  end
@@ -8,12 +8,24 @@ grammar Monsters
 #    '{' row1 row2 row3 row4 row5 row6 row7 row8 row9 '}'
 #  end
 
+  rule row2
+    monster_flags
+  end
+
   rule row1
-  	monster_id comma quoted_display_character comma display_colour comma quoted_name comma
+    monster_id comma quoted_display_character comma display_colour comma quoted_name comma
+  end
+
+  rule monster_flags
+    monster_flag (space '|' space monster_flag)* comma
+  end
+
+  rule monster_flag
+    constant
   end
 
   rule monster_id
-  	[A-Z_]+
+  	constant
   end
 
   rule quoted_display_character
@@ -25,7 +37,11 @@ grammar Monsters
   end
 
   rule display_colour
-  	[A-Z_]+
+  	constant
+  end
+
+  rule constant
+    [A-Z_]+
   end
 
   rule quoted_name
