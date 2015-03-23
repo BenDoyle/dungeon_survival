@@ -4,10 +4,6 @@ grammar MonstersRow1
     monster_id comma quoted_display_character comma display_colour comma quoted_name comma
   end
 
-  rule monster_flag
-    constant
-  end
-
   rule monster_id
   	constant
   end
