@@ -22,3 +22,4 @@ Parse Dungeon Crawl Stone Soup logfiles, extract event data
 - Special Items?
 - Time / Turns?
 
+Morgue data is available here: http://crawl.develz.org/morgues/
