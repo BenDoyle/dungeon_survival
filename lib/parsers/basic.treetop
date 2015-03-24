@@ -1,0 +1,15 @@
+grammar Basic
+
+  rule constant
+    [A-Z_]+
+  end
+
+  rule optional_whitespace
+    [\s]*
+  end
+
+  rule whitespace
+    [\s]+
+  end
+
+end

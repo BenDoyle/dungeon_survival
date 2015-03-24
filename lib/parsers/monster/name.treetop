@@ -1,0 +1,10 @@
+grammar Name
+  rule name
+    '"' unquoted_name '"' <Name>
+  end
+
+  rule unquoted_name
+    [a-zA-Z ]+
+  end
+
+end

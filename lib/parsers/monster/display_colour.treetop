@@ -1,0 +1,8 @@
+grammar DisplayColour
+  include Basic
+
+  rule display_colour
+    constant <DisplayColour>
+  end
+
+end
