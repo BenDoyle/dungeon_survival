@@ -1,5 +1,0 @@
-grammar DisplayCharacter
-  rule display_character
-    '\'' . '\'' <DisplayCharacter>
-  end
-end

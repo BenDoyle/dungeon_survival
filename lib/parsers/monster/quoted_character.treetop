@@ -1,0 +1,8 @@
+grammar QuotedCharacter
+  include Basic
+
+  rule quoted_character
+    '\'' character '\'' <QuotedCharacter>
+  end
+  
+end

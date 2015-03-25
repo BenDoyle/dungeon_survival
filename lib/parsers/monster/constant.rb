@@ -1,4 +1,4 @@
-module MonsterId
+module Constant
   def value
     text_value
   end

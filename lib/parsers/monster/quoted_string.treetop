@@ -1,0 +1,8 @@
+grammar QuotedString
+	include Basic
+
+  rule quoted_string
+    '"' unquoted_string '"' <QuotedString>
+  end
+
+end

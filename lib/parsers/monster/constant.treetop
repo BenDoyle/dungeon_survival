@@ -1,0 +1,8 @@
+grammar Constant
+  include Basic
+
+  rule const
+    constant <Constant>
+  end
+
+end

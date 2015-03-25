@@ -1,8 +1,0 @@
-grammar MonsterFlags
-  include Basic
-
-  rule monster_flags
-    constant (optional_whitespace '|' optional_whitespace constant)* <MonsterFlags>
-  end
-
-end

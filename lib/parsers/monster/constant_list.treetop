@@ -1,0 +1,8 @@
+grammar ConstantList
+  include Basic
+
+  rule constant_list
+    constant (optional_whitespace '|' optional_whitespace constant)* <ConstantList>
+  end
+
+end

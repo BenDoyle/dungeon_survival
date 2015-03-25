@@ -12,4 +12,12 @@ grammar Basic
     [\s]+
   end
 
+  rule unquoted_string
+    [a-zA-Z ]+
+  end
+
+  rule character
+    .
+  end
+
 end

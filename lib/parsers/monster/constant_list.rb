@@ -1,4 +1,4 @@
-module MonsterFlags
+module ConstantList
   def value
     values = [elements[0].text_value]
     if elements.size > 1

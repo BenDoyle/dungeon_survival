@@ -1,7 +1,0 @@
-grammar MonsterId
-  include Basic
-
-  rule monster_id
-    constant <MonsterId>
-  end
-end
