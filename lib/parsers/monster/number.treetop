@@ -1,0 +1,8 @@
+grammar Number
+  include Basic
+
+  rule num
+    number <Number>
+  end
+
+end

@@ -38,4 +38,10 @@ class MonsterParserTest < Test::Unit::TestCase
     assert_equal nil, ConstantListParser.new.parse("soldier ant")
   end
 
+  def test_monster_mass
+    assert_equal 60, NumberParser.new.parse("60").value
+    assert_equal nil, NumberParser.new.parse("04")
+    assert_equal nil, NumberParser.new.parse("soldier ant")
+  end
+
 end
