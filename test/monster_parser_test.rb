@@ -44,4 +44,33 @@ class MonsterParserTest < Test::Unit::TestCase
     assert_equal nil, NumberParser.new.parse("soldier ant")
   end
 
+  def test_exp_modifier_mass
+    assert_equal 10, NumberParser.new.parse("10").value
+    assert_equal 0, NumberParser.new.parse("0").value
+    assert_equal nil, NumberParser.new.parse("04")
+    assert_equal nil, NumberParser.new.parse("soldier ant")
+  end
+
+  def test_genus
+    assert_equal "MONS_WORKER_ANT", ConstantParser.new.parse("MONS_WORKER_ANT").value
+    assert_equal nil, ConstantParser.new.parse("foo bar")
+  end
+
+  def test_species
+    assert_equal "MONS_QUEEN_ANT", ConstantParser.new.parse("MONS_QUEEN_ANT").value
+    assert_equal nil, ConstantParser.new.parse("foo bar")
+  end
+
+  def test_holines
+    assert_equal "MH_NATURAL", ConstantParser.new.parse("MH_NATURAL").value
+    assert_equal nil, ConstantParser.new.parse("foo bar")
+  end
+
+  def test_resist_magic
+    assert_equal -3, NumberParser.new.parse("-3").value
+    assert_equal 0, NumberParser.new.parse("0").value
+    assert_equal 10, NumberParser.new.parse("10").value
+    assert_equal nil, NumberParser.new.parse("03")
+  end
+
 end

@@ -1,8 +1,8 @@
 grammar Number
   include Basic
 
-  rule num
-    number <Number>
+  rule number
+    integer <Number>
   end
 
 end
