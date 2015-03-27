@@ -1,7 +1,7 @@
 grammar Basic
 
   rule constant
-    [A-Z_]+
+    [A-Z_]+ <Constant>
   end
 
   rule optional_whitespace
@@ -30,6 +30,10 @@ grammar Basic
 
   rule zero
     '0'
+  end
+
+  rule comma
+    ','
   end
 
   rule whole_number

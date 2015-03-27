@@ -28,14 +28,37 @@ class MonsterParserTest < Test::Unit::TestCase
 
   def test_monster_flags
     assert_equal ["M_NO_SKELETON"], ConstantListParser.new.parse("M_NO_SKELETON").value
-    assert_equal ["M_SENSE_INVIS", "M_WARM_BLOOD", "M_BATTY"], ConstantListParser.new.parse("M_SENSE_INVIS | M_WARM_BLOOD | M_BATTY").value
+    assert_equal ["M_SENSE_INVIS", "M_WARM_BLOOD", "M_BATTY"], ConstantListParser.new.parse("M_SENSE_INVIS  | M_WARM_BLOOD | M_BATTY").value
     assert_equal nil, ConstantListParser.new.parse("soldier ant")
+  end
+
+  def test_multi_line_monster_flags
+    field = <<-STR
+      M_SENSE_INVIS | M_WARM_BLOOD 
+      | M_BATTY
+    STR
+    assert_equal ["M_SENSE_INVIS", "M_WARM_BLOOD", "M_BATTY"], ConstantListParser.new.parse(field.strip).value
   end
 
   def test_monster_resistance_flags
     assert_equal ["MR_NO_FLAGS"], ConstantListParser.new.parse("MR_NO_FLAGS").value
     assert_equal ["MR_RES_POISON", "MR_RES_HELLFIRE", "MR_VUL_WATER"], ConstantListParser.new.parse("MR_RES_POISON | MR_RES_HELLFIRE | MR_VUL_WATER").value
     assert_equal nil, ConstantListParser.new.parse("soldier ant")
+  end
+
+  def test_monster_resistance_flags_with_mrdd
+    field = <<-STR
+      MR_RES_POISON 
+      | MR_VUL_FIRE | mrd(MR_RES_COLD, 3) | mrd(MR_RES_ELEC, 2),
+    STR
+    assert_equal ["MR_RES_POISON", "MR_VUL_FIRE", "MR_RES_COLD_3", "MR_RES_ELEC_2"], ConstantListParser.new.parse(field.strip).value
+    assert_equal ["MR_RES_POISON_3", "MR_RES_FIRE_2", "MR_RES_COLD_2", "MR_RES_ELEC_2"], ConstantListParser.new.parse("mrd(MR_RES_POISON, 3) | mrd(MR_RES_FIRE | MR_RES_COLD | MR_RES_ELEC, 2)").value
+  end
+
+  def test_monster_resistance_flags_with_mrdd
+    assert_equal ["MR_RES_COLD_3"], ConstantListParser.new.parse("mrd(MR_RES_COLD, 3)").value
+    assert_equal ["MR_RES_COLD"], ConstantListParser.new.parse("MR_RES_COLD").value
+    assert_equal ["MR_RES_POISON_3", "MR_RES_FIRE_2", "MR_RES_COLD_2", "MR_RES_ELEC_2"], ConstantListParser.new.parse("mrd(MR_RES_POISON, 3) | mrd(MR_RES_FIRE | MR_RES_COLD | MR_RES_ELEC, 2)").value
   end
 
   def test_monster_mass

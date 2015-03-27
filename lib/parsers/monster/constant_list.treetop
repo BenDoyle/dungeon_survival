@@ -1,6 +1,18 @@
 grammar ConstantList
   include Basic
 
+  rule list_of_constant_or_modifier_list
+    constant_or_modified_list (optional_whitespace '|' optional_whitespace constant_or_modified_list)* <ListOfConstantOrModifiedList>
+  end
+
+	rule constant_or_modified_list
+	  constant / modified_list
+	end
+
+	rule modified_list
+	  'mrd(' list:constant_list optional_whitespace comma optional_whitespace modifier:whole_number ')' <ModifiedList>
+	end
+
   rule constant_list
     constant (optional_whitespace '|' optional_whitespace constant)* <ConstantList>
   end
