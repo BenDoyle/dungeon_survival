@@ -90,10 +90,11 @@ class MonsterParserTest < Test::Unit::TestCase
   end
 
   def test_resist_magic
-    assert_equal -3, NumberParser.new.parse("-3").value
-    assert_equal 0, NumberParser.new.parse("0").value
-    assert_equal 10, NumberParser.new.parse("10").value
-    assert_equal nil, NumberParser.new.parse("03")
+    assert_equal -3, NumberOrConstantParser.new.parse("-3").value
+    assert_equal 0, NumberOrConstantParser.new.parse("0").value
+    assert_equal 10, NumberOrConstantParser.new.parse("10").value
+    assert_equal nil, NumberOrConstantParser.new.parse("03")
+    assert_equal "MAG_IMMUNE", NumberOrConstantParser.new.parse("MAG_IMMUNE").value
   end
 
 end

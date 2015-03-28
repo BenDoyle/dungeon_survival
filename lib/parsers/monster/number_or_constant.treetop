@@ -1,0 +1,12 @@
+grammar NumberOrConstant
+  include Basic
+
+  rule number_or_constant
+    number / constant
+  end
+
+  rule number
+    integer <Number>
+  end
+
+end
