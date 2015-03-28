@@ -10,7 +10,7 @@ grammar Attacks
   end
 
   rule attack
-    '{' optional_whitespace type:constant delimiter flavour:constant delimiter damage:whole_number optional_whitespace '}' <Attack>
+    '{' optional_whitespace type:constant delimiter flavour:constant delimiter damage:positive_number optional_whitespace '}' <Attack>
   end
 
   rule delimiter

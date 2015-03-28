@@ -10,7 +10,7 @@ grammar ConstantList
 	end
 
 	rule modified_list
-	  'mrd(' list:constant_list optional_whitespace comma optional_whitespace modifier:whole_number ')' <ModifiedList>
+	  'mrd(' list:constant_list optional_whitespace comma optional_whitespace modifier:positive_number ')' <ModifiedList>
 	end
 
   rule constant_list
