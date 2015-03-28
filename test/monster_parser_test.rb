@@ -11,6 +11,7 @@ class MonsterParserTest < Test::Unit::TestCase
     assert_equal "a", QuotedCharacterParser.new.parse("\'a\'").value
     assert_equal "S", QuotedCharacterParser.new.parse("\'S\'").value
     assert_equal "4", QuotedCharacterParser.new.parse("\'4\'").value
+    assert_equal "@", QuotedCharacterParser.new.parse("\'@\'").value
     assert_equal nil, QuotedCharacterParser.new.parse("\'3d\'")
     assert_equal nil, QuotedCharacterParser.new.parse("d")
   end
