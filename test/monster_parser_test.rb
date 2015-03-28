@@ -97,4 +97,14 @@ class MonsterParserTest < Test::Unit::TestCase
     assert_equal "MAG_IMMUNE", NumberOrConstantParser.new.parse("MAG_IMMUNE").value
   end
 
+  def test_attacks
+    assert_equal [['AT_STING', 'AF_POISON_STRONG', 20], 'AT_NO_ATK', 'AT_NO_ATK', 'AT_NO_ATK'], AttacksParser.new.parse("{ {AT_STING, AF_POISON_STRONG, 20}, AT_NO_ATK, AT_NO_ATK, AT_NO_ATK }").value
+    field = <<-STR
+    { {AT_HIT, AF_PAIN, 25}, {AT_HIT, AF_DRAIN_XP, 15},
+      {AT_HIT, AF_DRAIN_XP, 15}, AT_NO_ATK }
+    STR
+    assert_equal [['AT_HIT', 'AF_PAIN', 25], ['AT_HIT', 'AF_DRAIN_XP', 15], ['AT_HIT', 'AF_DRAIN_XP', 15], 'AT_NO_ATK'], AttacksParser.new.parse(field.strip).value
+    assert_equal nil, AttacksParser.new.parse("foo")
+  end
+
 end

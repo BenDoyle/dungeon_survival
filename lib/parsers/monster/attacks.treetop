@@ -1,0 +1,20 @@
+grammar Attacks
+  include Basic
+
+  rule attacks
+    '{' optional_whitespace first:attack_or_constant delimiter second:attack_or_constant delimiter third:attack_or_constant delimiter fourth:attack_or_constant optional_whitespace '}' <Attacks>
+  end
+
+  rule attack_or_constant
+    attack / constant
+  end
+
+  rule attack
+    '{' optional_whitespace type:constant delimiter flavour:constant delimiter damage:whole_number optional_whitespace '}' <Attack>
+  end
+
+  rule delimiter
+    optional_whitespace comma optional_whitespace
+  end
+
+end
