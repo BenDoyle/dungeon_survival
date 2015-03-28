@@ -107,4 +107,10 @@ class MonsterParserTest < Test::Unit::TestCase
     assert_equal nil, AttacksParser.new.parse("foo")
   end
 
+  def test_hit_points
+    assert_equal [18, 3, 5, 0], HitPointsParser.new.parse("{ 18, 3, 5, 0 }").value
+    assert_equal nil, HitPointsParser.new.parse("{ 018, 3, 5, 0 }")
+    assert_equal nil, HitPointsParser.new.parse("foo")
+  end
+
 end
