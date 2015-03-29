@@ -144,6 +144,50 @@ class MonsterParserTest < Test::Unit::TestCase
       }    
     STR
     assert_equal monster.strip, MonsterParser.new.parse(monster.strip).text_value
+    monster = <<-STR
+      {
+          MONS_MNOLEG, '&', LIGHTGREEN, "Mnoleg",
+          M_UNIQUE | M_FIGHTER | M_SEE_INVIS | M_SPELLCASTER | M_SPEAKS,
+          mrd(MR_RES_ELEC, 2) | MR_RES_POISON | MR_RES_FIRE,
+          0, 15, MONS_PANDEMONIUM_LORD, MONS_PANDEMONIUM_LORD, MH_DEMONIC, -2,
+          { {AT_HIT, AF_MUTATE, 35}, {AT_HIT, AF_BLINK, 23}, AT_NO_ATK, AT_NO_ATK },
+          { 17, 0, 0, 350 },
+          10, 25, MST_MNOLEG, CE_NOCORPSE, Z_NOZOMBIE, S_BUZZ,
+          I_HIGH, HT_LAND, FL_NONE, 13, DEFAULT_ENERGY,
+          MONUSE_OPEN_DOORS, MONEAT_NOTHING, SIZE_LARGE
+      }    
+    STR
+    attributes = {
+      id: 'MONS_MNOLEG',
+      symbol: '&',
+      colour: 'LIGHTGREEN',
+      name: 'Mnoleg',
+      flags: %w[M_UNIQUE M_FIGHTER M_SEE_INVIS M_SPELLCASTER M_SPEAKS],
+      resistances: %w[MR_RES_ELEC_2 MR_RES_POISON MR_RES_FIRE],
+      mass: 0,
+      experience: 15,
+      genus: 'MONS_PANDEMONIUM_LORD',
+      species: 'MONS_PANDEMONIUM_LORD',
+      holiness: 'MH_DEMONIC',
+      resist_magic: -2,
+      atacks: [["AT_HIT", "AF_MUTATE", 35], ["AT_HIT", "AF_BLINK", 23], "AT_NO_ATK", "AT_NO_ATK"],
+      hit_points: [17, 0, 0, 350],
+      ac: 10,
+      evasion: 25,
+      spell_set: 'MST_MNOLEG',
+      corpse_class: 'CE_NOCORPSE',
+      zombie_size: 'Z_NOZOMBIE',
+      shouts_set: 'S_BUZZ',
+      inteligence: 'I_HIGH',
+      habitat: 'HT_LAND',
+      flight_class: 'FL_NONE',
+      speed: 13,
+      energy_usage: 'DEFAULT_ENERGY',
+      uses: 'MONUSE_OPEN_DOORS',
+      eats: 'MONEAT_NOTHING',
+      body_size: 'SIZE_LARGE',
+    }
+    assert_equal attributes, MonsterParser.new.parse(monster.strip).value
   end
 
 end

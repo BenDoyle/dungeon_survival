@@ -19,7 +19,7 @@ grammar Monster
     ac:number delimiter evasion:number delimiter spell:constant delimiter corpse:constant delimiter zombie_size:constant delimiter shouts:constant delimiter
     intel:constant delimiter habitat:constant delimiter flight_class:constant delimiter speed:number delimiter energy_usage:constant delimiter
     gmon_use_class:constant delimiter gmon_eat_class:constant delimiter body_size:constant whitespace
-    optional_whitespace '}' 
+    optional_whitespace '}' <Monster>
   end
 
 end
