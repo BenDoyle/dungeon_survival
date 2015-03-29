@@ -1,8 +1,7 @@
 grammar Constant
-  include Basic
 
-  rule const
-    constant <Constant>
+  rule constant
+    [A-Z_]+ <Constant>
   end
 
 end

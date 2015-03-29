@@ -1,12 +1,9 @@
 grammar NumberOrConstant
-  include Basic
+  include Number
+  include Constant
 
   rule number_or_constant
     number / constant
-  end
-
-  rule number
-    integer <Number>
   end
 
 end

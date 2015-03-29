@@ -1,5 +1,6 @@
 grammar Attacks
   include Basic
+  include Constant
 
   rule attacks
     '{' optional_whitespace first:attack_or_constant delimiter second:attack_or_constant delimiter third:attack_or_constant delimiter fourth:attack_or_constant optional_whitespace '}' <Attacks>

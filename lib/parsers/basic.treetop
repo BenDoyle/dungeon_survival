@@ -1,9 +1,5 @@
 grammar Basic
 
-  rule constant
-    [A-Z_]+ <Constant>
-  end
-
   rule optional_whitespace
     [\s]*
   end

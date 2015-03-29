@@ -1,0 +1,25 @@
+grammar Monster
+	include Basic
+  include Attacks
+  include ConstantList
+  include HitPoints
+  include Number
+  include Constant
+  include QuotedCharacter
+  include QuotedString
+
+  rule monster
+    '{' optional_whitespace
+    monster_id:constant delimiter display_character:quoted_character delimiter display_colour:constant delimiter name:quoted_string delimiter
+    monster_flags:constant_list delimiter
+    monster_resistance_flags:list_of_constant_or_modifier_list delimiter
+    mass:number delimiter experience_modifier:number delimiter genus:constant delimiter species:constant delimiter holiness:constant delimiter resist_magic:(number / constant) delimiter
+    attacks:attacks delimiter
+    hit_points:hit_points delimiter
+    ac:number delimiter evasion:number delimiter spell:constant delimiter corpse:constant delimiter zombie_size:constant delimiter shouts:constant delimiter
+    intel:constant delimiter habitat:constant delimiter flight_class:constant delimiter speed:number delimiter energy_usage:constant delimiter
+    gmon_use_class:constant delimiter gmon_eat_class:constant delimiter body_size:constant whitespace
+    optional_whitespace '}' 
+  end
+
+end

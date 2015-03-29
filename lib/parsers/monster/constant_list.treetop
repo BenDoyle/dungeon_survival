@@ -1,5 +1,6 @@
 grammar ConstantList
   include Basic
+  include Constant
 
   rule list_of_constant_or_modifier_list
     constant_or_modified_list (optional_whitespace '|' optional_whitespace constant_or_modified_list)* <ListOfConstantOrModifiedList>

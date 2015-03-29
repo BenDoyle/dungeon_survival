@@ -2,7 +2,7 @@ grammar HitPoints
   include Basic
 
   rule hit_points
-    '{' optional_whitespace dice:positive_number delimiter min:positive_number delimiter extra:counting_number delimiter fixed:counting_number optional_whitespace '}' <HitPoints>
+    '{' optional_whitespace dice:positive_number delimiter min:counting_number delimiter extra:counting_number delimiter fixed:counting_number optional_whitespace '}' <HitPoints>
   end
 
   rule delimiter
