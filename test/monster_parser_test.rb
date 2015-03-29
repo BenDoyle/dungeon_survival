@@ -145,16 +145,16 @@ class MonsterParserTest < Test::Unit::TestCase
     STR
     assert_equal monster.strip, MonsterParser.new.parse(monster.strip).text_value
     monster = <<-STR
-      {
+      { // comment is ignored
           MONS_MNOLEG, '&', LIGHTGREEN, "Mnoleg",
           M_UNIQUE | M_FIGHTER | M_SEE_INVIS | M_SPELLCASTER | M_SPEAKS,
           mrd(MR_RES_ELEC, 2) | MR_RES_POISON | MR_RES_FIRE,
           0, 15, MONS_PANDEMONIUM_LORD, MONS_PANDEMONIUM_LORD, MH_DEMONIC, -2,
           { {AT_HIT, AF_MUTATE, 35}, {AT_HIT, AF_BLINK, 23}, AT_NO_ATK, AT_NO_ATK },
-          { 17, 0, 0, 350 },
+          { 17, 0, 0, 350 }, //also this comment 
           10, 25, MST_MNOLEG, CE_NOCORPSE, Z_NOZOMBIE, S_BUZZ,
           I_HIGH, HT_LAND, FL_NONE, 13, DEFAULT_ENERGY,
-          MONUSE_OPEN_DOORS, MONEAT_NOTHING, SIZE_LARGE
+          MONUSE_OPEN_DOORS, MONEAT_NOTHING, SIZE_LARGE // and this comment too
       }    
     STR
     attributes = {
