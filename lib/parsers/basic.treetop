@@ -1,15 +1,23 @@
 grammar Basic
 
   rule optional_whitespace
-    [\t ]* comment_newline* [\t\n ]*
+    [\t ]* comment* [\t\n ]*
   end
 
   rule whitespace
-    ([\t ]+ comment_newline* [\t\n ]*) / ([\t ]* comment_newline* [\t\n ]+)
+    ([\t ]+ comment* [\t\n ]*) / ([\t ]* comment* [\t\n ]+)
   end
 
+  rule comment
+    internal_comment / comment_newline
+  end
+  
   rule comment_newline
-    '//' [a-z ]+ [\n]
+    '//' [a-z\. ]+ [\n]
+  end
+
+  rule internal_comment
+    '/*' [a-z\. ]+ '*/'
   end
 
   rule unquoted_string
